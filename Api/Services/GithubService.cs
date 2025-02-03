@@ -52,7 +52,7 @@ public class GithubService
         }
 
         var sortedRepos = allRepos
-            .OrderByDescending(r => r.CreatedAt)
+            .OrderBy(r => r.CreatedAt) 
             .Take(5)
             .ToList();
 
