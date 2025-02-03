@@ -27,4 +27,4 @@ COPY --from=build /out .
 EXPOSE 80
 
 # Comando para rodar a aplicação
-ENTRYPOINT ["dotnet", "API.dll"]
+ENTRYPOINT ["dotnet", "Api.dll"]
