@@ -20,7 +20,7 @@ public BlipController(){}
     public async Task<ActionResult<BlipDynamicContent>> GetCarouselRepos(string user){
         try {
             _githubService.UserName = user;
-            var repos = await _githubService.ListObject();
+            var repos = await _githubService.ListRepositories();
             var avatarUri = await _githubService.GetAvatar();
 
             var dynamicContent = _blipService.CarouselByGithubRepos(repos, avatarUri);

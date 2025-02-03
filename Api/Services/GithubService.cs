@@ -27,7 +27,7 @@ public class GithubService
         return userObj["avatar_url"]?.ToString();
     }
 
-    public async Task<List<GithubRepository>> ListObject() {
+    public async Task<List<GithubRepository>> ListRepositories() {
         
         var allRepos = new List<GithubRepository>();
         
@@ -40,7 +40,7 @@ public class GithubService
             
             var repos = JsonSerializer.Deserialize<List<GithubRepository>>(response);
             
-            if (repos == null || repos.Count == 0){
+            if (page == 3 || repos == null || repos.Count == 0) {
                 morePages = false;
                 break;
             }
@@ -48,6 +48,7 @@ public class GithubService
             var reposCSharp = repos
                 .Where(r => !string.IsNullOrEmpty(r.Language) && r.Language.Equals("C#"));
             allRepos.AddRange(reposCSharp);
+            page++;
         }
 
         var sortedRepos = allRepos
@@ -57,24 +58,4 @@ public class GithubService
 
         return sortedRepos;
     }
-
-    public async Task<List<GithubRepository>> ListObject_1() {
-        var endpoint = $"/users/{UserName}/repos";
-        
-        var response = await _client.GetStringAsync(endpoint);
-        var repos = JsonSerializer.Deserialize<List<GithubRepository>>(response);
-        
-        if (repos == null){
-            throw new Exception($"Unable to identify repositories for user '{UserName}'."); 
-        }
-
-        var sortedRepos = repos
-            .Where(r => !string.IsNullOrEmpty(r.Language) && r.Language.Equals("C#"))
-            .OrderByDescending(r => r.CreatedAt)
-            .Take(5)
-            .ToList();
-
-        return sortedRepos;
-    }
-
 }
