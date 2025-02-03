@@ -24,7 +24,7 @@ WORKDIR /app
 COPY --from=build /out .
 
 # Exponha a porta que o servidor web vai escutar
-EXPOSE 80
+EXPOSE 8080
 
 # Comando para rodar a aplicação
 ENTRYPOINT ["dotnet", "Api.dll"]
