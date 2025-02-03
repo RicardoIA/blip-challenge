@@ -4,7 +4,7 @@
 #
 
 app = 'api-restless-resonance-1298'
-primary_region = 'gru'
+primary_region = 'gig'
 
 [build]
 
